@@ -1,5 +1,4 @@
-// wildcard-match v5.1.4 (ISC) — vendored from npm; zero dependencies.
-// https://github.com/axtgr/wildcard-match
+
 'use strict';
 
 /**

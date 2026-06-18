@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "frontend",
+    "name": "MiniArcade",
     "slug": "frontend",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/adaptive-icon-mask-applied.png",
-    "scheme": "frontend",
+    "icon": "./assets/images/LogoApp.jpg",
+    "scheme": "frontendddd",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon-mask-applied.png",
+        "foregroundImage": "./assets/images/LogoApp.jpg",
         "backgroundColor": "#000000"
       },
       "edgeToEdgeEnabled": true,
@@ -30,21 +30,22 @@
     "web": {
       "bundler": "metro",
       "output": "single",
-      "favicon": "./assets/images/adaptive-icon-mask-applied.png"
+      "favicon": "./assets/images/LogoApp.jpg"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/app-imagen.jpg",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#000000"
         }
       ],
       "expo-font",
-      "expo-audio"
+      "expo-audio",
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true

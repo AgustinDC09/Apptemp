@@ -1,103 +1,88 @@
 #====================================================================================================
-# START - Testing Protocol - DO NOT EDIT OR REMOVE THIS SECTION
+
+INICIO - Protocolo de pruebas - NO EDITAR NI ELIMINAR ESTA SECCIÓN
 #====================================================================================================
 
-# THIS SECTION CONTAINS CRITICAL TESTING INSTRUCTIONS FOR BOTH AGENTS
-# BOTH MAIN_AGENT AND TESTING_AGENT MUST PRESERVE THIS ENTIRE BLOCK
-
-# Communication Protocol:
-# If the `testing_agent` is available, main agent should delegate all testing tasks to it.
-#
-# You have access to a file called `test_result.md`. This file contains the complete testing state
-# and history, and is the primary means of communication between main and the testing agent.
-#
-# Main and testing agents must follow this exact format to maintain testing data. 
-# The testing data must be entered in yaml format Below is the data structure:
-# 
-## user_problem_statement: {problem_statement}
-## backend:
-##   - task: "Task name"
-##     implemented: true
-##     working: true  # or false or "NA"
-##     file: "file_path.py"
-##     stuck_count: 0
-##     priority: "high"  # or "medium" or "low"
-##     needs_retesting: false
-##     status_history:
-##         -working: true  # or false or "NA"
-##         -agent: "main"  # or "testing" or "user"
-##         -comment: "Detailed comment about status"
-##
-## frontend:
-##   - task: "Task name"
-##     implemented: true
-##     working: true  # or false or "NA"
-##     file: "file_path.js"
-##     stuck_count: 0
-##     priority: "high"  # or "medium" or "low"
-##     needs_retesting: false
-##     status_history:
-##         -working: true  # or false or "NA"
-##         -agent: "main"  # or "testing" or "user"
-##         -comment: "Detailed comment about status"
-##
-## metadata:
-##   created_by: "main_agent"
-##   version: "1.0"
-##   test_sequence: 0
-##   run_ui: false
-##
-## test_plan:
-##   current_focus:
-##     - "Task name 1"
-##     - "Task name 2"
-##   stuck_tasks:
-##     - "Task name with persistent issues"
-##   test_all: false
-##   test_priority: "high_first"  # or "sequential" or "stuck_first"
-##
-## agent_communication:
-##     -agent: "main"  # or "testing" or "user"
-##     -message: "Communication message between agents"
-
-# Protocol Guidelines for Main agent
-#
-# 1. Update Test Result File Before Testing:
-#    - Main agent must always update the `test_result.md` file before calling the testing agent
-#    - Add implementation details to the status_history
-#    - Set `needs_retesting` to true for tasks that need testing
-#    - Update the `test_plan` section to guide testing priorities
-#    - Add a message to `agent_communication` explaining what you've done
-#
-# 2. Incorporate User Feedback:
-#    - When a user provides feedback that something is or isn't working, add this information to the relevant task's status_history
-#    - Update the working status based on user feedback
-#    - If a user reports an issue with a task that was marked as working, increment the stuck_count
-#    - Whenever user reports issue in the app, if we have testing agent and task_result.md file so find the appropriate task for that and append in status_history of that task to contain the user concern and problem as well 
-#
-# 3. Track Stuck Tasks:
-#    - Monitor which tasks have high stuck_count values or where you are fixing same issue again and again, analyze that when you read task_result.md
-#    - For persistent issues, use websearch tool to find solutions
-#    - Pay special attention to tasks in the stuck_tasks list
-#    - When you fix an issue with a stuck task, don't reset the stuck_count until the testing agent confirms it's working
-#
-# 4. Provide Context to Testing Agent:
-#    - When calling the testing agent, provide clear instructions about:
-#      - Which tasks need testing (reference the test_plan)
-#      - Any authentication details or configuration needed
-#      - Specific test scenarios to focus on
-#      - Any known issues or edge cases to verify
-#
-# 5. Call the testing agent with specific instructions referring to test_result.md
-#
-# IMPORTANT: Main agent must ALWAYS update test_result.md BEFORE calling the testing agent, as it relies on this file to understand what to test next.
-
-#====================================================================================================
-# END - Testing Protocol - DO NOT EDIT OR REMOVE THIS SECTION
+ESTA SECCIÓN CONTIENE INSTRUCCIONES CRÍTICAS DE PRUEBA PARA AMBOS AGENTES
+TANTO MAIN_AGENT COMO TESTING_AGENT DEBEN PRESERVAR ESTE BLOQUE COMPLETO
+Protocolo de comunicación:
+Si el testing_agent está disponible, el agente principal debe delegar todas las tareas de prueba en él.
+Tenés acceso a un archivo llamado test_result.md. Este archivo contiene el estado completo de las pruebas
+y el historial, y es el medio principal de comunicación entre el agente principal y el agente de prueba.
+Los agentes principal y de prueba deben seguir este formato exacto para mantener los datos de prueba.
+Los datos de prueba deben ingresarse en formato yaml. A continuación está la estructura de datos:
+user_problem_statement: {problem_statement}
+backend:
+- task: "Nombre de la tarea"
+implemented: true
+working: true # o false o "NA"
+file: "file_path.py"
+stuck_count: 0
+priority: "high" # o "medium" o "low"
+needs_retesting: false
+status_history:
+-working: true # o false o "NA"
+-agent: "main" # o "testing" o "user"
+-comment: "Comentario detallado sobre el estado"
+frontend:
+- task: "Nombre de la tarea"
+implemented: true
+working: true # o false o "NA"
+file: "file_path.js"
+stuck_count: 0
+priority: "high" # o "medium" o "low"
+needs_retesting: false
+status_history:
+-working: true # o false o "NA"
+-agent: "main" # o "testing" o "user"
+-comment: "Comentario detallado sobre el estado"
+metadata:
+created_by: "main_agent"
+version: "1.0"
+test_sequence: 0
+run_ui: false
+test_plan:
+current_focus:
+- "Nombre de la tarea 1"
+- "Nombre de la tarea 2"
+stuck_tasks:
+- "Nombre de la tarea con problemas persistentes"
+test_all: false
+test_priority: "high_first" # o "sequential" o "stuck_first"
+agent_communication:
+-agent: "main" # o "testing" o "user"
+-message: "Mensaje de comunicación entre agentes"
+Guías de protocolo para el agente principal
+1. Actualizar el archivo de resultados de prueba antes de probar:
+- El agente principal siempre debe actualizar el archivo test_result.md antes de llamar al agente de prueba
+- Agregar detalles de implementación al status_history
+- Configurar needs_retesting en true para las tareas que necesiten prueba
+- Actualizar la sección test_plan para guiar las prioridades de prueba
+- Agregar un mensaje a agent_communication explicando lo que se hizo
+2. Incorporar retroalimentación del usuario:
+- Cuando un usuario da feedback de que algo funciona o no, agregar esta información al status_history de la tarea correspondiente
+- Actualizar el estado working según el feedback del usuario
+- Si un usuario reporta un problema en una tarea marcada como working, incrementar el stuck_count
+- Siempre que el usuario reporte un problema en la app, si tenemos testing agent y task_result.md, encontrar la tarea apropiada y añadir en status_history la preocupación y el problema del usuario
+3. Rastrear tareas atascadas:
+- Monitorear qué tareas tienen stuck_count alto o donde se arregla el mismo problema repetidamente, analizarlo al leer task_result.md
+- Para problemas persistentes, usar la herramienta de búsqueda web para encontrar soluciones
+- Prestar especial atención a las tareas en la lista stuck_tasks
+- Cuando se arregle un problema en una tarea atascada, no resetear el stuck_count hasta que el agente de prueba confirme que funciona
+4. Proporcionar contexto al agente de prueba:
+- Al llamar al agente de prueba, dar instrucciones claras sobre:
+- Qué tareas necesitan prueba (referencia en test_plan)
+- Cualquier detalle de autenticación o configuración necesario
+- Escenarios de prueba específicos en los que enfocarse
+- Problemas conocidos o casos límite a verificar
+5. Llamar al agente de prueba con instrucciones específicas referidas a test_result.md
+IMPORTANTE: El agente principal debe SIEMPRE actualizar test_result.md ANTES de llamar al agente de prueba, ya que este archivo es la fuente para entender qué probar a continuación.
 #====================================================================================================
 
-
+FIN - Protocolo de pruebas - NO EDITAR NI ELIMINAR ESTA SECCIÓN
+#====================================================================================================
 
 #====================================================================================================
-# Testing Data - Main Agent and testing sub agent both should log testing data below this section
+
+Datos de prueba - El agente principal y el subagente de prueba deben registrar datos de prueba debajo de esta sección
 #====================================================================================================

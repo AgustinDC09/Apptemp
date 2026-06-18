@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
-# Dynamic command guard shim.
-# Installed under /opt/install-guard/bin/<name> (that dir is prepended to PATH), so
-# this wins over the real binary. It derives the guarded command from its own name
-# (argv0), asks cmd-guard.js for a verdict, and either blocks, rewrites, or transparently
-# execs the real binary. Rules: injected /opt/install-guard/rules.json, else the baked
-# default inside cmd-guard.js.
+
 
 GUARD=/app/frontend/scripts/cmd-guard.js
 BIN_NAME=$(basename "$0")

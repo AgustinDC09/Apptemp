@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
-# Generate command-guard shims from the ACTIVE ruleset (injected rules.json, or the
-# baked default inside cmd-guard.js). The set of guarded binaries is therefore
-# data-driven -- add a `commands.<name>` entry to the rules and the next run creates its
-# shim. Nothing here (or in the Dockerfile) hardcodes which binaries are guarded.
-#
-# Run it:
-#   - at image build  -> creates shims for the baked default (the floor: yarn)
-#   - at pod provisioning, right AFTER cortex writes /opt/install-guard/rules.json
-#     -> creates shims for the live dashboard set (yarn, eas, npx, ...) with NO rebuild
+
 set -e
 
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")

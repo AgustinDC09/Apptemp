@@ -1,7 +1,3 @@
-// The three entry modes of the command guard.
-// runArgs: shim mode -> exit 0 allow / 1 block (reason + alternate on stderr).
-// runPreinstall: yarn lifecycle hook -> checks package.json deps against the list.
-// runListCommands: print guarded binary names (drives sync-shims.sh).
 
 const fs = require("fs");
 const path = require("path");

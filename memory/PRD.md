@@ -1,62 +1,50 @@
 # Mini Arcade Offline — PRD
 
 ## Vision
-A 100% offline retro arcade collection in your pocket. Six bite-sized
-classics, a CRT-tinted UI, no servers, no accounts, no internet required.
+Una colección retro de arcade 100% offline en tu bolsillo. Seis clásicos en formato reducido, una interfaz con tinte CRT, sin servidores, sin cuentas, sin necesidad de internet.
 
-## User
-Casual gamers who want quick, nostalgic fun on commute / WiFi-less moments.
-All play sessions are anonymous and local-only.
+## Usuario
+Jugadores casuales que buscan diversión rápida y nostálgica durante viajes o momentos sin WiFi. Todas las sesiones de juego son anónimas y solo locales.
 
 ## Platform
-- React Native + Expo (Expo SDK 54, expo-router file-based routing)
-- Targets: Android, iOS, Web preview
-- 100% offline. Zero network calls in app code. Backend (FastAPI template)
-  is untouched and unused.
+- React Native + Expo (Expo SDK 54, enrutamiento basado en archivos con expo-router)
+- objetivos: Android, iOS, vista previa en web
+- 100% offline. Ninguna llamada de red en el código de la app. El backend (plantilla FastAPI) permanece intacto y sin uso.
 
-## Implemented Features (v1.0.0)
+## funcionalidades implementadas (v1.0.0)
 
-### Games (6)
-| ID         | Mechanic                  | Score model                       |
+### Juegos (6)
+| ID         | Mecanica                  | modelo de puntaje                 |
 |------------|---------------------------|-----------------------------------|
-| snake      | 20x20 grid, swipe to turn | +1 per apple, speeds up           |
-| flappy     | Tap to flap, gravity      | +1 per pipe cleared               |
-| pong       | Drag to move paddle vs AI | +1 per paddle hit                 |
-| 2048       | Swipe to merge tiles      | Sum of merged values              |
-| memory     | 4x4 grid, flip pairs      | max(100, 1000 - moves*15)         |
-| tictactoe  | 3x3 vs minimax CPU        | Wins per session                  |
+| serpiente  | cuadrícula 20x20, desliza | +1 por manzana, aumenta velocidad |
+| flappy bird| tocar para volar          | +1 por tubo superado              |
+| ping-pong  | mover paleta vs IA        | +1 por golpe con paleta           |
+| 2048       | deslizar y fusionar fichas| suma de valores fusionados        |
+| memoria    | encontrar pares           | máx(100, 1000 - movimientos*15)   |
+| tateti     | 3x3 vs minimax CPU        | victorias por sesión              |
 
 ### Screens
-- **Home (`/`)** — title, marquee, bento grid of game cards w/ HI per game,
-  PLAY / HI-SCORES / SETTINGS CTAs.
-- **Play (`/play/[game]`)** — universal HUD (score, best), game canvas,
-  full-screen Game-Over overlay with RESTART + LOBBY.
-- **Hi-Scores (`/scores`)** — top 5 runs per game (best row highlighted),
-  RESET ALL.
-- **Settings (`/settings`)** — dark/light theme toggle, FX (haptic
-  feedback) toggle, about block.
+- **Inicio (`/`)** — título, marquesina, cuadrícula bento de tarjetas de juego con HI por juego, CTAs EMPEZAR / MEJORES RECORDS / AJUSTES.
+- **Jugar (`/play/[game]`)** — HUD universal (puntaje, mejor), lienzo del juego, overlay de Game-Over en pantalla completa con REINICIAR + LOBBY.
+- **Mejores Records (`/scores`)** — op 5 partidas por juego (mejor fila resaltada), REINICIAR TODO.
+- **Ajustes (`/settings`)** — alternar tema oscuro/claro, alternar FX (feedback háptico), bloque de información.
 
-### Cross-cutting
-- Theme: dark (default) ↔ light, full palette swap. Persisted.
-- FX: tactile feedback (expo-haptics) on jump / hit / pickup / win events.
-  Persisted toggle.
-- Persistence: AsyncStorage via `@/src/utils/storage`. Theme, sound, and
-  scores survive cold restarts.
-- Aesthetic: Press Start 2P pixel font, neon palette, CRT scanline
-  overlay, neobrutalist hard-shadow buttons.
+### aspectos transversales
+- Tema: oscuro (por defecto) ↔ claro, intercambio completo de paleta. Persistente.
+- FX: feedback táctil (expo-haptics) en eventos de salto / golpe / recogida / victoria. Toggle persistente.
+- Persistencia: AsyncStorage vía `@/src/utils/storage`. Tema, sonido y puntajes sobreviven reinicios en frío.
+- Estética: fuente pixel Press Start 2P, paleta neón, overlay de scanline CRT, botones neobrutalistas con sombra dura.
 
-## Tech Architecture
-- **Models / state** — `/app/frontend/src/context/AppContext.tsx`
-  (theme, sound, scores).
-- **Game catalog** — `/app/frontend/src/games/catalog.ts` (single
-  source of truth for routing & display).
-- **Game components** — `/app/frontend/src/games/<Name>.tsx` — pure
-  React Native, no external assets. Each accepts
+## Arquitectura Técnica
+- **modelos / estado** — `/app/frontend/src/context/AppContext.tsx`
+   (tema, sonido, puntajes).
+- **catálogo de juegos** — `/app/frontend/src/games/catalog.ts` (fuente única de verdad para routing y display).
+- **componentes de juego** — `/app/frontend/src/games/<Name>.tsx` — React Native puro, sin assets externos. Cada uno acepta
   `{ playKey, onScoreChange, onGameOver }`.
-- **Shared chrome** — `PixelText`, `PixelButton`, `ArcadeHeader`,
+- **chrome compartido** — `PixelText`, `PixelButton`, `ArcadeHeader`,
   `ScanlineOverlay`.
 
-## Non-Goals (v1)
-- Multiplayer / leaderboards.
-- Custom audio files (haptics-only by design).
-- New game types beyond the six shipped.
+## Non-Metas (v1)
+- multijugador / tablas de líderes.
+- archivos de audio personalizados (solo hápticos por diseño).
+- nuevos tipos de juego más allá de los seis incluidos.
