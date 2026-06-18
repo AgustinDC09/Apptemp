@@ -1,0 +1,36 @@
+{
+  "summary": "Frontend-only mobile (Expo web preview, 390x844) testing for Mini Arcade Offline. All 6 game cards, PLAY/HI-SCORES/SETTINGS CTAs, scores screen with 6 scores-card-* and reset-scores-button, settings screen with theme-row & sound-row toggles, header-back-button, and per-game testIDs (snake-board, flappy-canvas, pong-field, 2048-board, memory-card-N, ttt-cell-N, ttt-next-round, ttt-end-session) all render correctly. Theme toggle visibly inverts UI to light mode and persists across reload. Sound toggle persists across reload. Flappy gameplay -> game-over-overlay with restart-button + home-button works. TicTacToe round-end shows both ttt-next-round and ttt-end-session. Navigation between home <-> play <-> scores <-> settings works via header-back-button. Backend testing skipped per request (offline-only app). One real React warning was observed in MemoryGame; two harmless RN-web deprecation warnings noted.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "MemoryGame",
+        "issue": "Console error: 'Cannot update a component (Play) while rendering a different component (MemoryGame)'. Cause: onScoreChange (parent setState) is called inside the setMoves updater function at /app/frontend/src/games/MemoryGame.tsx:88-92. State updater functions must be pure; calling a parent setState inside them schedules an update on Play during MemoryGame's render commit. Fix: move onScoreChange(scoreFor(nm)) out of the updater (e.g., compute newMoves = moves + 1; setMoves(newMoves); onScoreChange(scoreFor(newMoves));) or use a useEffect on [moves].",
+        "testID": "memory-card-*",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": [
+      {"component": "TextShadow style", "issue": "RN-web deprecation warning: 'textShadow*' style props are deprecated. Use 'textShadow'. Likely emitted from PixelText.tsx neon glow styles (textShadowColor/textShadowOffset/textShadowRadius). Reference: /app/frontend/src/components/PixelText.tsx. Non-blocking but should migrate to the unified 'textShadow' shorthand for RN 0.76+/web."},
+      {"component": "pointerEvents prop", "issue": "RN-web deprecation warning: 'props.pointerEvents is deprecated. Use style.pointerEvents'. Search the codebase (incl. ScanlineOverlay) for any <View pointerEvents=...> and move it into the style object. Non-blocking."}
+    ]
+  },
+  "test_report_links": ["/app/test_reports/screens/home.png", "/app/test_reports/screens/settings_dark.png", "/app/test_reports/screens/settings_light.png", "/app/test_reports/screens/scores.png", "/app/test_reports/screens/play_snake.png", "/app/test_reports/screens/play_flappy.png", "/app/test_reports/screens/play_pong.png", "/app/test_reports/screens/play_2048.png", "/app/test_reports/screens/play_memory.png", "/app/test_reports/screens/play_tictactoe.png", "/app/test_reports/screens/ttt_play.png", "/app/test_reports/screens/memory_play.png", "/app/test_reports/screens/after_reload.png"],
+  "action_items": [
+    "Fix MemoryGame.tsx setState-in-render: move onScoreChange call out of the setMoves((m) => ...) updater function (line ~88-92). This will silence the React 'Cannot update a component while rendering' warning.",
+    "Migrate deprecated 'textShadow*' style props in PixelText.tsx to the new unified 'textShadow' shorthand (RN-web warning).",
+    "Move any pointerEvents={...} JSX prop into style.pointerEvents (RN-web deprecation)."
+  ],
+  "critical_code_review_comments": [
+    "AppContext recordScore uses functional setState but writes to AsyncStorage from inside the updater function (line 118 in AppContext.tsx). State updaters should be pure. Works in practice but consider extracting persistence to a useEffect on [scores] or computing next outside and calling setScores(next) then storage.setItem(next) — same anti-pattern family as the MemoryGame issue."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "100% testIDs present; ~95% flows green (1 console warning from MemoryGame)"},
+  "seed_data_creation": "None (offline app, no backend)",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Public URL https://offline-arcade-63.preview.emergentagent.com. All required testIDs verified present and functional. If retesting after MemoryGame fix, focus on /play/memory: tap pairs and confirm no console error 'Cannot update a component'. Also re-verify Flappy game-over overlay (already passing). Persistence across reload via localStorage (web AsyncStorage) verified working for theme + sound.",
+  "rca_of_issue": "MemoryGame.tsx calls onScoreChange (parent component setState in app/play/[game].tsx) from inside the setMoves((m) => { ...; onScoreChange(...); return nm; }) functional updater. React runs updater functions during the render phase of MemoryGame; calling a setState on the parent Play component during that phase triggers the warning. Reproduction: open /play/memory and tap any two cards (one full move). Mitigation: call onScoreChange AFTER setMoves with a pre-computed value, or react to `moves` via useEffect."
+}
