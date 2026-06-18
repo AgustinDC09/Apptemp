@@ -21,7 +21,7 @@ export default function Scores() {
       style={{ flex: 1, backgroundColor: theme.bg }}
       testID="scores-screen"
     >
-      <ArcadeHeader title="HI-SCORES" />
+      <ArcadeHeader title="MEJORES RECORDS" />
       <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
         {GAMES.map((g) => {
           const list = scores[g.id] ?? [];
@@ -65,7 +65,7 @@ export default function Scores() {
                   </PixelText>
                   <View style={{ height: 4 }} />
                   <PixelText size={8} color={theme.textDim}>
-                    BEST {String(best).padStart(5, "0")} {g.unit}
+                    MEJOR {String(best).padStart(5, "0")} {g.unit}
                   </PixelText>
                 </View>
               </View>
@@ -80,7 +80,7 @@ export default function Scores() {
                   }}
                 >
                   <PixelText size={9} color={theme.textDim}>
-                    NO RUNS YET — PLAY TO SET A RECORD
+                    SIN RECORD TODAVIA — JUEGA PARA ESTABLECER RECORDS!
                   </PixelText>
                 </View>
               ) : (
@@ -131,7 +131,7 @@ export default function Scores() {
 
         <PixelButton
           testID="reset-scores-button"
-          label="RESET ALL"
+          label="REINICIAR TODOS"
           color={theme.red}
           textColor="#fff"
           size="sm"

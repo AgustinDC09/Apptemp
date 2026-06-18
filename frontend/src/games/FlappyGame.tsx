@@ -119,7 +119,7 @@ export default function FlappyGame({ onScoreChange, onGameOver }: GameComponentP
   return (
     <View style={styles.wrap}>
       <PixelText size={8} color={theme.textDim}>
-        TAP TO FLAP
+        TOCA PARA VOLAR
       </PixelText>
       <View style={{ height: 12 }} />
       <Pressable

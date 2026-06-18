@@ -58,30 +58,61 @@ function slideRow(row: number[]): { row: number[]; gained: number; moved: boolea
   const moved = compact.some((v, i) => v !== row[i]);
   return { row: compact, gained, moved };
 }
+function transpose(b: Board): Board {
+  const nb = empty();
+  for (let r = 0; r < SIZE; r++) {
+    for (let c = 0; c < SIZE; c++) {
+      nb[c][r] = b[r][c];
+    }
+  }
+  return nb;
+}
+
 function move(b: Board, dir: "L" | "R" | "U" | "D") {
   let work = clone(b);
-  let rotations = 0;
-  if (dir === "U") {
-    work = rotateCCW(work);
-    rotations = 3;
-  } else if (dir === "D") {
-    work = rotateCW(work);
-    rotations = 1;
-  } else if (dir === "R") {
-    work = rotateCW(rotateCW(work));
-    rotations = 2;
-  }
   let gained = 0;
   let moved = false;
-  for (let r = 0; r < SIZE; r++) {
-    const out = slideRow(work[r]);
-    work[r] = out.row;
-    gained += out.gained;
-    if (out.moved) moved = true;
+
+  if (dir === "U") {
+    work = transpose(work); // convertir columnas en filas
+    for (let r = 0; r < SIZE; r++) {
+      const out = slideRow(work[r]);
+      work[r] = out.row;
+      gained += out.gained;
+      if (out.moved) moved = true;
+    }
+    work = transpose(work); // volver a la forma original
+  } else if (dir === "D") {
+    work = transpose(work);
+    // invertir cada fila para simular "slide right"
+    work = work.map(row => row.reverse());
+    for (let r = 0; r < SIZE; r++) {
+      const out = slideRow(work[r]);
+      work[r] = out.row;
+      gained += out.gained;
+      if (out.moved) moved = true;
+    }
+    // volver a invertir y transponer
+    work = work.map(row => row.reverse());
+    work = transpose(work);
+  } else if (dir === "L" || dir === "R") {
+    if (dir === "R") {
+      work = work.map(row => row.reverse());
+    }
+    for (let r = 0; r < SIZE; r++) {
+      const out = slideRow(work[r]);
+      work[r] = out.row;
+      gained += out.gained;
+      if (out.moved) moved = true;
+    }
+    if (dir === "R") {
+      work = work.map(row => row.reverse());
+    }
   }
-  for (let i = 0; i < rotations; i++) work = rotateCW(work);
+
   return { board: work, gained, moved };
 }
+
 function canMove(b: Board): boolean {
   for (const d of ["L", "R", "U", "D"] as const) {
     if (move(b, d).moved) return true;
@@ -146,7 +177,7 @@ export default function Game2048({ onScoreChange, onGameOver }: GameComponentPro
   return (
     <View style={styles.wrap}>
       <PixelText size={8} color={theme.textDim}>
-        SWIPE TO MERGE
+        DESLIZA PARA COMBINAR
       </PixelText>
       <View style={{ height: 12 }} />
       <GestureDetector gesture={pan}>

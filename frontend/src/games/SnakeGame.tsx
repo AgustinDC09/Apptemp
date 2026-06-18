@@ -140,7 +140,7 @@ export default function SnakeGame({
   return (
     <View style={styles.wrap}>
       <PixelText size={8} color={theme.textDim}>
-        SWIPE TO STEER
+        DESLIZA PARA MOVER
       </PixelText>
       <View style={{ height: 12 }} />
       <GestureDetector gesture={pan}>

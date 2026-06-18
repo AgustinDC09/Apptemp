@@ -133,7 +133,7 @@ export default function PongGame({ onScoreChange, onGameOver }: GameComponentPro
   return (
     <View style={styles.wrap}>
       <PixelText size={8} color={theme.textDim}>
-        DRAG TO MOVE PADDLE
+        ARRASTRA PARA MOVER LA BARRA
       </PixelText>
       <View style={{ height: 12 }} />
       <GestureDetector gesture={pan}>

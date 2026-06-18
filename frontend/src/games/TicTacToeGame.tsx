@@ -140,13 +140,13 @@ export default function TicTacToeGame({ onScoreChange, onGameOver }: GameCompone
         : status === "draw"
           ? { label: "DRAW", color: theme.yellow }
           : null;
-
   return (
     <View style={styles.wrap}>
       <PixelText size={8} color={theme.textDim}>
         YOU ARE X · WINS: {wins}
       </PixelText>
       <View style={{ height: 12 }} />
+
       <View
         testID="ttt-board"
         style={{
@@ -155,36 +155,39 @@ export default function TicTacToeGame({ onScoreChange, onGameOver }: GameCompone
           borderWidth: 3,
           borderColor: theme.border,
           backgroundColor: theme.surface,
-          padding: 4,
-          flexDirection: "row",
-          flexWrap: "wrap",
         }}
       >
-        {board.map((v, i) => (
-          <Pressable
-            key={i}
-            testID={`ttt-cell-${i}`}
-            onPress={() => tap(i)}
-            style={{
-              width: cellSize,
-              height: cellSize,
-              borderWidth: 2,
-              borderColor: theme.border,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: theme.surfaceAlt,
-            }}
-          >
-            {v && (
-              <PixelText
-                size={Math.floor(cellSize * 0.5)}
-                color={v === "X" ? theme.cyan : theme.magenta}
-                glow={v === "X" ? theme.cyan : theme.magenta}
-              >
-                {v}
-              </PixelText>
-            )}
-          </Pressable>
+        {[0, 1, 2].map((row) => (
+          <View key={row} style={{ flexDirection: "row", flex: 1 }}>
+            {[0, 1, 2].map((col) => {
+              const i = row * 3 + col;
+              return (
+                <Pressable
+                  key={i}
+                  testID={`ttt-cell-${i}`}
+                  onPress={() => tap(i)}
+                  style={{
+                    flex: 1,
+                    borderWidth: 2,
+                    borderColor: theme.border,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: theme.surfaceAlt,
+                  }}
+                >
+                  {board[i] && (
+                    <PixelText
+                      size={Math.floor((boardSize / 3) * 0.5)}
+                      color={board[i] === "X" ? theme.cyan : theme.magenta}
+                      glow={board[i] === "X" ? theme.cyan : theme.magenta}
+                    >
+                      {board[i]}
+                    </PixelText>
+                  )}
+                </Pressable>
+              );
+            })}
+          </View>
         ))}
       </View>
 
@@ -221,7 +224,6 @@ export default function TicTacToeGame({ onScoreChange, onGameOver }: GameCompone
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   wrap: { flex: 1, alignItems: "center", justifyContent: "center", padding: 16 },
 });

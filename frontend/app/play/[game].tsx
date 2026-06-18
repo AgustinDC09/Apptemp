@@ -115,7 +115,7 @@ export default function Play() {
       <View style={[styles.hud, { borderBottomColor: theme.border, backgroundColor: theme.surface }]}>
         <View>
           <PixelText size={7} color={theme.textDim}>
-            SCORE
+            RECORD
           </PixelText>
           <PixelText size={14} color={accent} glow={accent} testID="hud-score">
             {String(score).padStart(5, "0")}
@@ -123,7 +123,7 @@ export default function Play() {
         </View>
         <View style={{ alignItems: "flex-end" }}>
           <PixelText size={7} color={theme.textDim}>
-            BEST
+            MEJOR RECORD
           </PixelText>
           <PixelText size={14} color={theme.yellow} testID="hud-best">
             {String(Math.max(best, finalScore)).padStart(5, "0")}
@@ -162,11 +162,11 @@ export default function Play() {
               color={isRecord ? theme.yellow : theme.red}
               glow={isRecord ? theme.yellow : theme.red}
             >
-              {isRecord ? "NEW RECORD!" : "GAME OVER"}
+              {isRecord ? "NUEVO RECORD!" : "PERDISTE"}
             </PixelText>
             <View style={{ height: 14 }} />
             <PixelText size={9} color={theme.textDim}>
-              FINAL SCORE
+              RECORD
             </PixelText>
             <View style={{ height: 6 }} />
             <PixelText size={22} color={accent} glow={accent}>
@@ -176,21 +176,21 @@ export default function Play() {
               <>
                 <View style={{ height: 10 }} />
                 <PixelText size={8} color={theme.yellow}>
-                  ★ ★ ★  HI-SCORE  ★ ★ ★
+                  ★ ★ ★  MEJOR RECORD  ★ ★ ★
                 </PixelText>
               </>
             )}
             <View style={{ height: 20, alignSelf: "stretch" }} />
             <PixelButton
               testID="restart-button"
-              label="▶ RESTART"
+              label="▶ VOLVER A JUGAR"
               color={theme.green}
               onPress={restart}
             />
             <View style={{ height: 10 }} />
             <PixelButton
               testID="home-button"
-              label="LOBBY"
+              label="SALA"
               color={theme.cyan}
               size="sm"
               onPress={() => router.replace("/")}

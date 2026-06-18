@@ -81,29 +81,29 @@ export default function Settings() {
       style={{ flex: 1, backgroundColor: theme.bg }}
       testID="settings-screen"
     >
-      <ArcadeHeader title="SETTINGS" />
+      <ArcadeHeader title="AJUSTES" />
       <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
         <PixelText size={9} color={theme.textDim} style={{ marginBottom: 12 }}>
-          DISPLAY
+          PANTALLA
         </PixelText>
         <Row
           testID="theme-row"
           icon={themeName === "dark" ? "moon" : "sunny"}
           label={themeName === "dark" ? "DARK MODE" : "LIGHT MODE"}
-          hint="Toggle CRT dark / daylight gray"
+          hint="Cambiar entre modo oscuro y claro"
           value={themeName === "dark"}
           onToggle={toggleTheme}
         />
 
         <View style={{ height: 8 }} />
         <PixelText size={9} color={theme.textDim} style={{ marginBottom: 12 }}>
-          AUDIO & FEEL
+          AUDIO
         </PixelText>
         <Row
           testID="sound-row"
           icon={soundOn ? "volume-high" : "volume-mute"}
           label={soundOn ? "FX ON" : "FX OFF"}
-          hint="Haptic + click feedback on game events"
+          hint="Vibración y clic en eventos del juego"
           value={soundOn}
           onToggle={toggleSound}
         />
@@ -113,17 +113,17 @@ export default function Settings() {
           style={[styles.about, { backgroundColor: theme.surface, borderColor: theme.border }]}
         >
           <PixelText size={9} color={theme.text}>
-            ABOUT
+            ACERCA DE
           </PixelText>
           <View style={{ height: 8 }} />
           <PixelText size={8} color={theme.textDim}>
             Mini Arcade · v1.0.0
           </PixelText>
           <PixelText size={8} color={theme.textDim}>
-            6 retro mini-games · 0 servers
+            6 minijuegos retro locales, sin internet
           </PixelText>
           <PixelText size={8} color={theme.textDim}>
-            All scores stored locally on device.
+            Todos los records se guardan de manera local
           </PixelText>
         </View>
       </ScrollView>

@@ -45,7 +45,7 @@ export default function Home() {
         {/* Title bar */}
         <View style={[styles.titleBar, { borderBottomColor: theme.border }]}>
           <PixelText size={10} color={theme.textDim}>
-            INSERT COIN ▸
+            INSERTAR MONEDA ▸
           </PixelText>
           <View style={{ height: 8 }} />
           <PixelText size={22} color={theme.yellow} glow={theme.magenta}>
@@ -53,9 +53,10 @@ export default function Home() {
           </PixelText>
           <View style={{ height: 6 }} />
           <PixelText size={10} color={theme.cyan}>
-            OFFLINE EDITION
+            JUEGOS RETRO SIN INTERNET
           </PixelText>
         </View>
+
 
         {/* Marquee strip */}
         <View
@@ -141,7 +142,7 @@ export default function Home() {
         <View style={{ paddingHorizontal: 24, paddingTop: 8, gap: 12 }}>
           <PixelButton
             testID="play-button"
-            label="▶  PLAY"
+            label="▶  EMPEZAR"
             color={theme.green}
             size="lg"
             onPress={() => router.push(`/play/${GAMES[0].id}`)}
@@ -149,14 +150,14 @@ export default function Home() {
           <View style={{ flexDirection: "row", gap: 12 }}>
             <PixelButton
               testID="scores-button"
-              label="HI-SCORES"
+              label="RECORDS"
               color={theme.cyan}
               onPress={() => router.push("/scores")}
               style={{ flex: 1 }}
             />
             <PixelButton
               testID="settings-button"
-              label="SETTINGS"
+              label="AJUSTES"
               color={theme.magenta}
               textColor="#fff"
               onPress={() => router.push("/settings")}
@@ -164,9 +165,6 @@ export default function Home() {
             />
           </View>
           <View style={{ height: 8 }} />
-          <PixelText size={8} color={theme.textDim} style={{ textAlign: "center" }}>
-            © 2026 OFFLINE ARCADE · NO INTERNET REQUIRED
-          </PixelText>
         </View>
       </ScrollView>
       <ScanlineOverlay />
