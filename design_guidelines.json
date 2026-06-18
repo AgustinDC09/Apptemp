@@ -1,0 +1,95 @@
+{
+  "theme": "DARK",
+  "archetype": "7 (Electric & Neon)",
+  "design_philosophy": "Retro Arcade Neobrutalism. High contrast, neon glow against dark backgrounds, thick structural borders mimicking physical arcade cabinets, and pixelated visual language. Light mode swaps void black for light gray while keeping the neon and bold outlines intact.",
+  "typography": {
+    "fonts": {
+      "heading": "'Press Start 2P', monospace",
+      "body": "'VT323', monospace",
+      "accent": "'Courier New', monospace"
+    },
+    "sizing": {
+      "h1": "text-4xl md:text-5xl tracking-tight leading-none",
+      "h2": "text-2xl md:text-3xl tracking-tight",
+      "h3": "text-xl",
+      "body": "text-base leading-relaxed",
+      "small": "text-xs tracking-[0.2em] uppercase"
+    }
+  },
+  "colors": {
+    "dark_theme": {
+      "background": "#0A0A0C",
+      "surface": "#14141A",
+      "border": "#FFFFFF",
+      "text_primary": "#FFFFFF",
+      "text_secondary": "#A0A0B0",
+      "neon_cyan": "#00FFFF",
+      "neon_magenta": "#FF00FF",
+      "neon_yellow": "#FFFF00",
+      "neon_green": "#39FF14",
+      "neon_red": "#FF003C"
+    },
+    "light_theme": {
+      "background": "#F0F0F0",
+      "surface": "#FFFFFF",
+      "border": "#000000",
+      "text_primary": "#000000",
+      "text_secondary": "#505050",
+      "neon_cyan": "#00CCCC",
+      "neon_magenta": "#CC00CC",
+      "neon_yellow": "#CCCC00",
+      "neon_green": "#22CC00",
+      "neon_red": "#CC0022"
+    }
+  },
+  "layout_and_spacing": {
+    "spacing_scale": "Tailwind generous spacing: p-4, p-6 for small containers, p-8 to p-12 for screen padding.",
+    "grid_system": "Bento Grid Mode A (Tetris Grid). Asymmetrical layout for game selection. Use gap-4 to gap-6. One large featured game (col-span-full), smaller games stacked.",
+    "alignment": "Center alignment for main titles and scoreboards, left alignment for lists and settings."
+  },
+  "components": {
+    "buttons": {
+      "style": "Neobrutalist. No border radius (rounded-none). Thick borders (border-2 or border-4 border-white dark:border-black). High saturation background. Solid sharp shadow (shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] in dark mode, black in light mode).",
+      "interaction": "On press: translate-y-1 translate-x-1, shadow-[0px_0px_0px_0px]."
+    },
+    "cards": {
+      "style": "Flat background, strict rectangular borders (border-2), no soft drop shadows. Use colored inner borders or glowing box-shadow for a 'neon tube' effect."
+    },
+    "overlays": {
+      "scanlines": "Add a pointer-events-none overlay with repeating-linear-gradient to simulate CRT scanlines.",
+      "glassmorphism": "Not recommended. Use solid, opaque colors to maintain the 8-bit retro aesthetic."
+    }
+  },
+  "interactions_and_motion": {
+    "micro_animations": "Snappy, distinct changes. Avoid smooth easing; use linear or step-based easing for a retro feel. Flash buttons on click.",
+    "accessibility": "Ensure contrast ratios > 4.5:1. Respect prefers-reduced-motion."
+  },
+  "media": {
+    "image_urls": [
+      {
+        "category": "background",
+        "url": "https://images.unsplash.com/photo-1511512578047-dfb367046420?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHxyZXRybyUyMGFyY2FkZSUyMGNhYmluZXQlMjBuZW9uJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3ODE3NjAwNTd8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Gaming room with arcade machines. Use as a subtle, low-opacity background for the home screen."
+      },
+      {
+        "category": "texture",
+        "url": "https://images.pexels.com/photos/8108656/pexels-photo-8108656.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Tetris-inspired retro design pattern. Use for game cards or settings screen background."
+      },
+      {
+        "category": "accent",
+        "url": "https://images.pexels.com/photos/29702644/pexels-photo-29702644.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Close-up of vintage arcade joystick. Use for the 'Play' section hero graphic."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Build this as a React Native + Expo app using standard React Native StyleSheet or NativeWind if available, matching the provided Tailwind token equivalents.",
+    "Use 'Press Start 2P' (or a fallback monospace font like VT323) for all main UI text.",
+    "Implement a 'Bento Grid' layout on the Home screen to list the games (Snake, Flappy Bird, Pong, 2048, Memory Match, Tic-Tac-Toe).",
+    "All interactive elements MUST have `data-testid` attributes (or `testID` in React Native) following kebab-case, role-based naming (e.g., `testID='play-button'`).",
+    "Ensure standard sounds for gameplay (jump, collision) if feasible, and store high scores locally (AsyncStorage or equivalent).",
+    "Provide a light/dark theme toggle in Settings. In Light theme, invert the background to light gray, borders to black, and keep neon colors but slightly darkened for contrast.",
+    "Simulate CRT scanlines globally by overlaying a semi-transparent view with a repeating line pattern, set to pointerEvents='none'."
+  ]
+}
