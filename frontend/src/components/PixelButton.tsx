@@ -54,7 +54,6 @@ export default function PixelButton({
     <View style={[{ alignSelf: "stretch" }, style]}>
       {/* Hard shadow block behind */}
       <View
-        pointerEvents="none"
         style={{
           position: "absolute",
           left: OFFSET,
@@ -64,6 +63,7 @@ export default function PixelButton({
           backgroundColor: theme.shadow,
           borderWidth: 3,
           borderColor: theme.border,
+          pointerEvents: "none",
         }}
       />
       <Pressable

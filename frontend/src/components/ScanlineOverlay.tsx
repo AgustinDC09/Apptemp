@@ -20,7 +20,7 @@ export default function ScanlineOverlay({
   }, [height, spacing]);
 
   return (
-    <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+    <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
       {lines.map((i) => (
         <View
           key={i}

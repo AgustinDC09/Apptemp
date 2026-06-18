@@ -85,11 +85,9 @@ export default function MemoryGame({ onScoreChange, onGameOver }: GameComponentP
 
     if (newPicks.length === 2) {
       setBusy(true);
-      setMoves((m) => {
-        const nm = m + 1;
-        onScoreChange(scoreFor(nm));
-        return nm;
-      });
+      const nm = moves + 1;
+      setMoves(nm);
+      onScoreChange(scoreFor(nm));
       const [a, b] = newPicks;
       const isMatch = next[a].symbol === next[b].symbol;
       setTimeout(() => {
